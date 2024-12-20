@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Card Babs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #7b1616; 
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .card-container {
+            position: relative;
+            width: 300px;
+            height: 410px; 
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .tap-text {
+            position: absolute;
+            top: -30px; 
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5em;
+            color: rgb(247, 183, 32);
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .card .cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            background-color: #edb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: left;
+            transform: rotateY(0deg);
+            transition: transform 0.6s;
+            z-index: 3;
+            box-shadow: inset -5px 0px 10px rgba(232, 112, 112, 0.2);
+        }
+
+        .card .cover img {
+            max-width: 100%;
+            max-height: 80%;
+            border-radius: 5px;
+        }
+
+        .card.open .cover {
+            transform: rotateY(-180deg);
+            z-index: 1;
+        }
+
+        .card .inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background-color: #edb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            z-index: 2;
+            padding: 20px;
+            text-align: center;
+            box-shadow: inset 5px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .inside h1 {
+            font-size: 1.8em;
+            font-family: 'sans-serif';
+            margin-bottom: 10px;
+            color: #000000;
+        }
+        .inside h2 {
+            font-size: 1.3em;
+            font-family: 'Calibri';
+            margin-bottom: 15px;
+            color: #000000;
+        }
+
+        .inside p {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #000000;
+        }
+
+        .inside .from {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #000000;
+        }
+
+        .inside .notes{
+            margin-top: 20px;
+            font-size: 0.4em;
+            color: #000000;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background-color: white;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+            animation: fall 5s linear infinite;
+        }
+
+        .snowflake::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 1;
+            }
+        }
+
+        .snow-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #008000; 
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .snow-button:hover {
+            background-color: #006400; 
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="tap-text">Tap the pig</div>
+        <br>
+        <div class="card" id="card" onclick="toggleCard()">
+            <div class="cover">
+                <img src="ChristmasBabs.png">
+            </div>
+            <div class="inside">
+                <h1>MERRY CHRISTMAS🎄</h1>
+                <h2>Michelle Babs XIXIXI</h2>
+                <p>Wishing you and your family a happy holiday season and all the best for New Year, Sending you peace, love, and joy this holiday season. God Bless!</p>
+                <p class="from">Love, Johed</p>
+                <p class="notes">Cutie kan babinyaa HAHAHA</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <button class="snow-button" onclick="makeItSnow()">Make it Snow</button>
+    <audio id="christmasMusic" src="chsristmassong.mp3" loop></audio>
+
+    <script>
+        function toggleCard() {
+            const card = document.getElementById('card');
+            card.classList.toggle('open');
+        }
+
+        function makeItSnow() {
+            const audio = document.getElementById('christmasMusic');
+            audio.play();
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = Math.random() * window.innerWidth + 'px';
+                snowflake.style.width = snowflake.style.height = Math.random() * 5 + 5 + 'px';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(snowflake);
+            }
+        }
+    </script>
+</body>
+</html>
